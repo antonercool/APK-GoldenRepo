@@ -4,8 +4,6 @@
 
 using namespace std;
 
-
-
 int main(){
 
     int testNumber = 42;
@@ -16,8 +14,7 @@ int main(){
     // NO! constIntPtr = &testNumber2;        // Cannot move PTR
     *intConstPtr = 45;
       cout <<  "const int pointer to int, we can change : " <<   *intConstPtr << endl;
-  
-  
+   
     int const * constIntPtr = &constTestNumber;    // int ptr pointer to const int
     //we cannot change value of the int
     const int* const constIntPtrConstInt = &constTestNumber; 
@@ -26,7 +23,6 @@ int main(){
 
     cout << "local value testNumber : " << testNumber << endl;
  
-
     // ############## testing const methods on const objects #######
     const ConstClass thisIsConst(54);
     ConstClass thisIsNoneConst(42);
