@@ -21,7 +21,7 @@ int main()
 
     // Generic ScopedPtr work with anything
     {
-        GenericRAII saveInt(new int(1));
+        SmartPointer saveInt(new int(1));
 
         cout << "Print int : " << *saveInt << endl;
 
@@ -29,7 +29,7 @@ int main()
 
         cout << "Print int : " << *saveInt << endl << endl;
 
-        GenericRAII saveString(new string("HelloTHere"));
+        SmartPointer saveString(new string("HelloTHere"));
 
         cout << "save String : " << *saveString << endl;
 

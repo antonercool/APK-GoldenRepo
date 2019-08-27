@@ -1,14 +1,14 @@
 
 template<class T>
-class GenericRAII
+class SmartPointer
 {
 private:
    T* _genericPtrHolder;
 public:
-    explicit GenericRAII(T* genRaiiPtr = 0){
+    explicit SmartPointer(T* genRaiiPtr = 0){
         _genericPtrHolder = genRaiiPtr;
     }
-    ~GenericRAII(){
+    ~SmartPointer(){
           delete _genericPtrHolder;
     }
 
@@ -22,9 +22,9 @@ public:
 
 private:
     // Make these private so rule of 3 dont get fucked
-    GenericRAII(const T &);
-    GenericRAII &operator=(const T &);
+    SmartPointer(const T &);
+    SmartPointer &operator=(const T &);
 };
 
 
-//template class GenericRAII<int>;
+//template class SmartPointer<int>;
