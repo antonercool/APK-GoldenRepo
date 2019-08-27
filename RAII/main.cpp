@@ -16,7 +16,7 @@ int main()
 
         (*saveInt) = 5;
 
-        cout << "Print int : " << *saveInt << endl;
+        cout << "Print  saveInt : " << *saveInt << endl;
     }
 
     // Generic ScopedPtr work with anything

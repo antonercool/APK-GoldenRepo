@@ -14,7 +14,22 @@ public:
     }
     
     // Up hold rule of 3
-    ~SharedPointer();
+    ~SharedPointer(){
+        
+        // NOTE! *testPtr-- 
+        // THIS is wrong! checkout --> adressBefore : 0xee6e58   adressAfter : 0xee6e54 --> because
+        // C++ predecence https://en.cppreference.com/w/cpp/language/operator_precedence
+        // postfix "--"" has higher priority than  "*" direfernce operator ! 
+        
+        --(*_count);
+        // if count i == 0 we need to release our resources
+        if (*_count == 0)
+        {
+          delete count;
+          delete _genericSharedPtr;
+        }
+        
+    }
     SharedPointer& operator=(const SharedPointer &);
     SharedPointer(const SharedPointer &);
 
