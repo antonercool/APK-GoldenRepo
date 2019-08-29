@@ -1,10 +1,10 @@
 #Constants
 # Verion 1.0.1
 SOURCES 	= main.cpp scopedRAII.cpp
-OBJECTS=$(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.o))
-DEPS=$(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.d))
-EXE = program
-HOST = windows
+OBJECTS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.o))
+DEPS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.d))
+EXE 		= program
+HOST 		= windows
 
 
 #Compiler setUp
