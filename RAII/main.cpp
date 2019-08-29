@@ -2,6 +2,7 @@
 #include <string>
 #include "scopedRAII.hpp"
 #include "genericRAII.hpp"
+#include "sharedPointer.hpp"
 
 using namespace std;
 
@@ -42,6 +43,39 @@ int main()
         cout << "Save string after use of operator -> append 123 : " << *saveString << endl;
         
     }
+
+    // Test of copy constructor 
+    {
+        // Normal constructor
+        SharedPointer<int> intShared(new int(1));
+
+        // copy constructor
+        SharedPointer<int> intShared2 = intShared;
+
+        // copy constructor
+        SharedPointer<int> intShared3(intShared);
+
+    }
+
+    // Test of assignment
+    {
+          // Normal constructor
+        SharedPointer<int> intShared(new int(1));
+
+        // Normal constructor    
+        SharedPointer<int> intShared2(new int(123));
+
+        // Normal constructor
+        SharedPointer<int> intShared3(new int(1));
+
+        // assignment
+        intShared = intShared2;
+ 
+        // assignment
+        intShared3 = intShared2;
+
+    }
+
 
     return 0;
 }
