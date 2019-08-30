@@ -7,6 +7,7 @@ EXE 		= program
 HOST 		= windows
 
 
+
 #Compiler setUp
 CXX = g++ 
 CXXFLAGS = -I. -Wall -std=c++17 	# -I. = path to include files '. mean here # -Wall Show all Possible warnins
