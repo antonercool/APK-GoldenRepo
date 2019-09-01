@@ -1,10 +1,13 @@
 #Constants
-# Verion 1.0.0
-SOURCES 	= main.cpp scopedRAII.cpp
-OBJECTS=$(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.o))
-DEPS=$(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.d))
-EXE = program
-HOST = windows
+# Verion 1.0.1
+## NOTE!! -- this make file holds a bug where .h are not build are modifying!
+## Work around atm -> make clean --> make
+SOURCES 	= main.cpp 
+OBJECTS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.o))
+DEPS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.d))
+EXE 		= program
+HOST 		= windows
+
 
 
 #Compiler setUp
@@ -28,7 +31,6 @@ BIN_DIR 			= bin/${HOST}
 CXXFLAGS 			+= -pthread
 CLEAN_CMD1 			= -rm -rf ${BUILD_DIR}  
 CLEAN_CMD2			= -rm -rf ${BIN_DIR} 
-MAKE_FOLDER			= mkdir -p
 MAKE_FOLDER_BUILD 	= mkdir -p ${BUILD_DIR}  
 MAKE_FOLDER_BIN   	= mkdir -p ${BIN_DIR}  
 endif
