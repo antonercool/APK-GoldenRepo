@@ -1,5 +1,7 @@
 #Constants
 # Verion 1.0.1
+## NOTE!! -- this make file holds a bug where .h are not build are modifying!
+## Work around atm -> make clean --> make
 SOURCES 	= main.cpp scopedRAII.cpp
 OBJECTS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.o))
 DEPS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.d))
