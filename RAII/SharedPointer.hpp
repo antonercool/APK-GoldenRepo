@@ -14,7 +14,7 @@ private:
 public:
     // First time a client gives heap allocated resource
     // SharedPointer allocated a count object on the heap and initializes it to 1 (One client atm)
-    SharedPointer(T *genericSharedPtr)
+    explicit SharedPointer(T *genericSharedPtr)
     {
         _genericSharedPtr = genericSharedPtr;
         _count = new size_t(1);
@@ -47,25 +47,38 @@ public:
     // & is const by default // const & is a ref which cannot change to object (ReadOnly)
     SharedPointer &operator=(const SharedPointer & objectToAssignFrom)
     {
+        // Dont assign to it self // check whether this happends
+        if(this == &objectToAssignFrom){
+            return *this;
+        }
+
         cout << "Start -- Assigment operator called, myCounter = " << *_count << " , objectToAssignFrom's count : " << *objectToAssignFrom._count << endl;
 
         // Decrement before we leave
         --(*_count); 
 
+        // if we are last we clean
+        if (*_count == 0)
+        {
+           cout << ", count after : " << *_count << ", deleting count and data" << endl;
+            delete _count;
+            delete _genericSharedPtr;
+        }
+        
         //then just switch over
         _count = objectToAssignFrom._count;
         ++(*_count); 
-;
 
         _genericSharedPtr = objectToAssignFrom._genericSharedPtr;
 
         // return dereference of thisPtr
-        return *this;
-
         cout << "END -- Assigment operator called, myCounter = " << *_count << " , objectToAssignFrom's count : " << *objectToAssignFrom._count << endl;
+        
+        return *this;
+       
     }
 
-    SharedPointer(const SharedPointer &objectToCopyFrom)
+    explicit SharedPointer(const SharedPointer &objectToCopyFrom)
     {
 
         cout << "Start -- CopyConstructor called, " << "objectTCopyFrom's count : " << *objectToCopyFrom._count << endl;
