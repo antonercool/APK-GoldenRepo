@@ -36,6 +36,10 @@ public:
            cout << ", count after : " << *_count << ", deleting count and data" << endl;
             delete _count;
             delete _genericSharedPtr;
+
+            // Avoid dangling pointers
+            _count = nullptr;
+            _genericSharedPtr = nullptr;
         }
         else
         {
@@ -63,6 +67,10 @@ public:
            cout << ", count after : " << *_count << ", deleting count and data" << endl;
             delete _count;
             delete _genericSharedPtr;
+
+            // Avoid dangling pointers
+            _count = nullptr;
+            _genericSharedPtr = nullptr;
         }
         
         //then just switch over
