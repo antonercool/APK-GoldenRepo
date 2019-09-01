@@ -54,7 +54,7 @@ int main()
 
         // copy constructor
         SharedPointer<int> intShared3(intShared);
-        
+
     }
 
     // Test of assignment
@@ -76,6 +76,48 @@ int main()
 
 
     }
+
+    // Bool operatoer // How to use it ? 
+    {   
+        // When can this happend?? No one has acces to the private pointer
+        int* intPtr = new int(1);
+        SharedPointer<int> intShared(intPtr);
+
+        // Whoops we cannot do this becuase constructor takes a copy of a pointer
+        // we delete heap resource, but we cannot avoid the dangling pointer inside intShared
+        delete intPtr;
+        intPtr = nullptr;
+
+
+        if(intShared){
+            cout << "The sharedPointerValid"  << endl;
+        }
+        else
+        {
+            cout << "The sharedPointerIsNotValid"  << endl;
+        }
+        
+    }
+
+    // == operator
+    {
+        SharedPointer<int> intShared(new int(1));
+
+        // Normal constructor    
+        SharedPointer<int> intShared2(new int(123));
+
+     
+        // assignment
+        intShared = intShared2;
+ 
+       
+       if(intShared2 == intShared){
+           cout << "yes intShared2 == intShared" << endl;
+       }
+
+
+    }
+
 
 
     return 0;

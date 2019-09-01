@@ -109,6 +109,10 @@ public:
     }
 
 
+    bool operator== (SharedPointer & objToCheck){
+        return _genericSharedPtr == objToCheck._genericSharedPtr;
+    }
+
     // --------- SMART POINTER IDOIM ----------- ///
 
     // Overload dereference operator -- so client can acces its data this way
