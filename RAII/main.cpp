@@ -54,7 +54,7 @@ int main()
 
         // copy constructor
         SharedPointer<int> intShared3(intShared);
-
+        
     }
 
     // Test of assignment
@@ -73,6 +73,7 @@ int main()
  
         // assignment
         intShared3 = intShared2;
+
 
     }
 

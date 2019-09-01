@@ -63,8 +63,8 @@ public:
 
         // if we are last we clean
         if (*_count == 0)
-        {
-           cout << ", count after : " << *_count << ", deleting count and data" << endl;
+        {   
+            cout << "Assignment is cleaning up " << endl;
             delete _count;
             delete _genericSharedPtr;
 
@@ -86,7 +86,7 @@ public:
        
     }
 
-    explicit SharedPointer(const SharedPointer &objectToCopyFrom)
+    SharedPointer(const SharedPointer &objectToCopyFrom)
     {
 
         cout << "Start -- CopyConstructor called, " << "objectTCopyFrom's count : " << *objectToCopyFrom._count << endl;
@@ -100,6 +100,17 @@ public:
         cout << "END -- CopyConstructor operator called, myCounter = " << *_count << " , objectToCopyFrom's count : " << *objectToCopyFrom._count << endl;
     }
 
+    operator bool() const
+    {
+        if(_genericSharedPtr != nullptr){
+            return true;
+        }
+        return false;
+    }
+
+
+    // --------- SMART POINTER IDOIM ----------- ///
+
     // Overload dereference operator -- so client can acces its data this way
     T& operator*() const
     {
@@ -111,6 +122,8 @@ public:
     {
         return _genericSharedPtr;
     } /* raii> accesses data T* */
+
+    // --------- SMART POINTER IDOIM ----------- ///
 
     size_t count(){
         return *_count;
