@@ -1,4 +1,5 @@
 #include <iostream>
+#include "myFunctor.hpp"
 
 using namespace std;
 
@@ -17,10 +18,9 @@ int main(){
     // what type is auto ? 
     void(*aHelloWorldFunction3)(int) = helloWorld;
 
-
     // that is ugly // we can typedef it
-    typedef void(*helloWorlFunction)(int);
-    helloWorlFunction aHelloWorldFunction4 = helloWorld;  // &helloWorld;
+    typedef void(*HelloWorlFunction)(int);
+    HelloWorlFunction aHelloWorldFunction4 = helloWorld;  // &helloWorld;
 
     // call them 
     aHelloWorldFunction1(1);
@@ -28,11 +28,15 @@ int main(){
     aHelloWorldFunction3(3);
     aHelloWorldFunction4(4);
 
-
     // with lambda
-    helloWorlFunction aHelloWorldLamdaFucntion = [](int number){cout << "helloWorld number : " << number << endl;};
-
+    HelloWorlFunction aHelloWorldLamdaFucntion = [](int number){cout << "helloWorld number : " << number << endl;};
     aHelloWorldLamdaFucntion(5);
+
+
+    MyFunctor myFunctor;
+    // with functor
+    myFunctor(4);
+ 
 
 
 
