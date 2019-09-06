@@ -3,49 +3,133 @@
 
 using namespace std;
 
-template<typename T, size_t size>
+template <typename T, size_t _size = 0>
 class MyArray
 {
 private:
-    T _array[size];
-    T* _currentIndexPtr;
+    T _array[_size];
+    size_t _currentIndex = 0;
+
 public:
-    MyArray(){
-        // Initialize currentIndexPtr to the first element
-        _currentIndexPtr = &_array;
-    }
-    ~MyArray();
+    MyArray() {}
+    ~MyArray() {}
 
-    void fill(const T& itemToFill){
+    void fill(const T &itemToFill)
+    {
 
-        bool canInsert = ((size-1)>=_currentIndex ) ? false : true;
-
-        if (canInsert)
+        if (_size == 0)
         {
-            _currentIndexPtr++;
-            *_currentIndexPtr = itemToFill;
+            return;
+        }
+
+        bool canInsert = _size == _currentIndex ? false : true;
+
+        if (canInsert == true)
+        {
+            _array[_currentIndex] = itemToFill;
+            _currentIndex = _currentIndex + 1;
         }
         else
         {
-            cout << "Instance of my Array is full" << endl;   
+            cout << "Instance of my Array is full" << endl;
         }
     }
 
-    T* begin(){
-        return &_array;
+    T *begin()
+    {
+        // returns first address // same as _array
+        return &_array[0];
     }
 
-    T* end(){
-        return (&_array) + size;
+    T *end()
+    {
+        // return address of end + 1 (Size of T in addresses)
+        return (&_array[_size - 1]) + 1;
     }
 
-    T& operator [] (int index){
-        return *((&_array) + index);
+    T &operator[](int index)
+    {
+        return _array[index];
     }
 
-    size_t size(){
-        return size;
+    size_t size()
+    {
+        return _size;
+    }
+};
+
+// _size cannot have default values
+template <typename T, size_t _size>
+class MyArray<T*, _size> 
+{
+
+private:
+    T* _array[_size];
+    size_t _currentIndex = 0;
+
+public:
+    MyArray() {}
+
+    ~MyArray() {{
+        for(int i=0; i<_size; i++){
+            delete _array[i];
+            _array[i] = nullptr;
+        }
+    }
+
+    void fill(const T &itemToFill)
+    {
+        if (_size == 0)
+        {
+            return;
+        }
+
+        bool canInsert = _size == _currentIndex ? false : true;
+
+        if (canInsert == true)
+        {
+            _array[_currentIndex] = itemToFill;
+            _currentIndex = _currentIndex + 1;
+        }
+        else
+        {
+            cout << "Instance of my Array is full" << endl;
+        }
+    }
+
+    T* begin()
+    {
+        // returns first address // same as _array
+        return &_array[0];
+    }
+
+    T* end()
+    {
+        // return address of end + 1 (Size of T in addresses)
+        return (&_array[_size - 1]) + 1;
+    }
+
+    T &operator[](int index)
+    {
+        return *_array[index];
+    }
+
+    size_t size()
+    {
+        return _size;
     }
 
 };
 
+
+
+template <typename T>
+T *myFind(T *first, T *last, const T &v)
+{   
+    for (T* it = first; it != last; it++)
+    {
+        if (v == *it) {return it;}
+    }
+
+    return last;
+}
