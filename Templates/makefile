@@ -8,8 +8,6 @@ DEPS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.d))
 EXE 		= program
 HOST 		= windows
 
-
-
 #Compiler setUp
 CXX = g++ 
 CXXFLAGS = -I. -Wall -std=c++17 	# -I. = path to include files '. mean here # -Wall Show all Possible warnins
@@ -35,26 +33,58 @@ MAKE_FOLDER_BUILD 	= mkdir -p ${BUILD_DIR}
 MAKE_FOLDER_BIN   	= mkdir -p ${BIN_DIR}  
 endif
 
-all: info $(BIN_DIR)/$(EXE)
 
-info:
-	@ echo "Compiling for '${HOST}'..."
-	
-${BIN_DIR}/${EXE}:  ${DEPS} ${OBJECTS} 
-	@ echo "Creating directory '${BIN_DIR}' if not exits"
-	${MAKE_FOLDER_BIN} 
+# Søren
+all: $(BIN_DIR)/$(EXE)
+
+${BIN_DIR}/$(EXE): $(DEPS) $(OBJECTS)
+	@ echo "Creating folder for $(BUILD_DIR) if it does not exits"
+	$(MAKE_FOLDER_BIN)
 	$(CXX) $(CXXFLAGS) -o $@ $(OBJECTS)
 
+# Rule that describes how a .d (dependency) file is created from a .cpp file
+# Similar to the assigment that you just completed %.cpp -> %.o
 ${BUILD_DIR}/%.d: %.cpp
-	@ echo "Creating directory '${BUILD_DIR}' if not exits"
-	${MAKE_FOLDER_BUILD}
+	@ echo "Creating folder for $(BIN_DIR) if it does not exits"
+	$(MAKE_FOLDER_BUILD)
 	$(CXX) -MT$(@:.d=.o) -MM $(CXXFLAGS) $^ > $@
 
 ${BUILD_DIR}/%.o: %.cpp
-	@ echo "Creating directory '${BUILD_DIR}' if not exits"
-	${MAKE_FOLDER_BUILD}
+	@ echo "Creating folder for $(BUILD_DIR) if it does not exits"
+	$(MAKE_FOLDER_BUILD)
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
+
+ifneq ($(MAKECMDGOALS),clean)
+-include $(DEPS)
+endif
 
 clean:
 	${CLEAN_CMD1}
 	${CLEAN_CMD2}
+
+
+#
+
+##all: info $(BIN_DIR)/$(EXE)
+##
+##info:
+##	@ echo "Compiling for '${HOST}'..."
+##	
+##${BIN_DIR}/${EXE}:  ${DEPS} ${OBJECTS} 
+##	@ echo "Creating directory '${BIN_DIR}' if not exits"
+##	${MAKE_FOLDER_BIN} 
+##	$(CXX) $(CXXFLAGS) -o $@ $(OBJECTS)
+##
+##${BUILD_DIR}/%.d: %.cpp
+##	@ echo "Creating directory '${BUILD_DIR}' if not exits"
+##	${MAKE_FOLDER_BUILD}
+##	$(CXX) -MT$(@:.d=.o) -MM $(CXXFLAGS) $^ > $@
+##
+##${BUILD_DIR}/%.o: %.cpp
+##	@ echo "Creating directory '${BUILD_DIR}' if not exits"
+##	${MAKE_FOLDER_BUILD}
+##	$(CXX) -c $< -o $@ $(CXXFLAGS)
+##
+##clean:
+##	${CLEAN_CMD1}
+##	${CLEAN_CMD2}
