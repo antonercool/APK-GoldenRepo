@@ -1,7 +1,7 @@
 #Constants
-# Verion 1.0.1
-## NOTE!! -- this make file holds a bug where .h are not build are modifying!
-## Work around atm -> make clean --> make
+# Verion 1.0.3
+## 1.0.1 --> 1.0.3 Now builds if .hpp are modified
+
 SOURCES 	= main.cpp
 OBJECTS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.o))
 DEPS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.d))
@@ -33,8 +33,7 @@ MAKE_FOLDER_BUILD 	= mkdir -p ${BUILD_DIR}
 MAKE_FOLDER_BIN   	= mkdir -p ${BIN_DIR}  
 endif
 
-
-# Søren
+# Build steps
 all: $(BIN_DIR)/$(EXE)
 
 ${BIN_DIR}/$(EXE): $(DEPS) $(OBJECTS)
@@ -61,30 +60,3 @@ endif
 clean:
 	${CLEAN_CMD1}
 	${CLEAN_CMD2}
-
-
-#
-
-##all: info $(BIN_DIR)/$(EXE)
-##
-##info:
-##	@ echo "Compiling for '${HOST}'..."
-##	
-##${BIN_DIR}/${EXE}:  ${DEPS} ${OBJECTS} 
-##	@ echo "Creating directory '${BIN_DIR}' if not exits"
-##	${MAKE_FOLDER_BIN} 
-##	$(CXX) $(CXXFLAGS) -o $@ $(OBJECTS)
-##
-##${BUILD_DIR}/%.d: %.cpp
-##	@ echo "Creating directory '${BUILD_DIR}' if not exits"
-##	${MAKE_FOLDER_BUILD}
-##	$(CXX) -MT$(@:.d=.o) -MM $(CXXFLAGS) $^ > $@
-##
-##${BUILD_DIR}/%.o: %.cpp
-##	@ echo "Creating directory '${BUILD_DIR}' if not exits"
-##	${MAKE_FOLDER_BUILD}
-##	$(CXX) -c $< -o $@ $(CXXFLAGS)
-##
-##clean:
-##	${CLEAN_CMD1}
-##	${CLEAN_CMD2}
