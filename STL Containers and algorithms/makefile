@@ -2,7 +2,7 @@
 # Verion 1.0.3
 ## 1.0.1 --> 1.0.3 Now builds if .hpp are modified
 
-SOURCES 	= main.cpp
+SOURCES 	= algo.cpp
 OBJECTS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.o))
 DEPS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.d))
 EXE 		= program
