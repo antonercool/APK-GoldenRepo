@@ -7,10 +7,17 @@ OBJECTS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.o))
 DEPS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.d))
 EXE 		= program
 HOST 		= windows
+DEBUG 		= false
 
 #Compiler setUp
 CXX = g++ 
 CXXFLAGS = -I. -Wall -std=c++17 	# -I. = path to include files '. mean here # -Wall Show all Possible warnins
+
+ifeq ($(DEBUG), true)
+CXXFLAGS += -g
+endif
+
+
 
 #For windows 
 ifeq (${HOST}, windows)
