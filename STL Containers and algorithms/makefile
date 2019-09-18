@@ -18,7 +18,6 @@ CXXFLAGS += -g
 endif
 
 
-
 #For windows 
 ifeq (${HOST}, windows)
 BUILD_DIR			= build/${HOST}

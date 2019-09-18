@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++.exe build and debug active file",
+            "name": "Build DEBUG ---> run",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/windows/program.exe",
@@ -24,18 +24,18 @@
                 },                
             ]
             ,
-            "preLaunchTask": "g++.exe build active file"
+            "preLaunchTask": "Build DEBUG & run"
         },
         {
-            "name": "g++ build & run active file",
+            "name": "Build RELEASE --> run",
             "type": "cppdbg",
             "request": "launch",
-            "program": "{workspaceFolder}/bin/windows/program.exe",
+            "program": "${workspaceFolder}/bin/windows/program.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": false, //set to true to see output in cmd instead
+            "externalConsole": true, //set to true to see output in cmd instead
             "MIMode": "gdb",
             "miDebuggerPath": "C:/MinGW/bin/gdb.exe",
             "setupCommands": [
@@ -45,7 +45,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "g++ build & run active file"
+            "preLaunchTask": "Build RELEASE & run"
         }
     ]
 }

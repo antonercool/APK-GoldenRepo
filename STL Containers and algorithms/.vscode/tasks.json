@@ -2,7 +2,7 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "g++.exe build active file",
+            "label": "Build DEBUG & run",
             "command": "make",
             "args": [
                 "DEBUG = true"
@@ -13,8 +13,11 @@
         },
         {
             "type": "shell",
-            "label": "g++ build & run active file",
+            "label": "Build RELEASE & run",
             "command": "make",
+            "args": [
+                "DEBUG = false"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}"
             }
