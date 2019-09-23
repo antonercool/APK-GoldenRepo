@@ -32,10 +32,10 @@
             "request": "launch",
             "program": "${workspaceFolder}/bin/windows/program.exe",
             "args": [],
-            "stopAtEntry": false,
+            "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": true, //set to true to see output in cmd instead
+            "externalConsole": false, //set to true to see output in cmd instead
             "MIMode": "gdb",
             "miDebuggerPath": "C:/MinGW/bin/gdb.exe",
             "setupCommands": [

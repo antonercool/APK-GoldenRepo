@@ -3,7 +3,7 @@
 ## 1.0.1 --> 1.0.3 Now builds if .hpp are modified
 ## 1.0.3 --> 1.1.0 Now takes DEBUG as param "make DEBUG=true or DEBUG=false + Build tasks added for release and debug
 
-SOURCES 	= algo.cpp
+SOURCES 	= main.cpp
 OBJECTS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.o))
 DEPS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.d))
 EXE 		= program
