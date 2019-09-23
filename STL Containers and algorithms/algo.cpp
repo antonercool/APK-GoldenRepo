@@ -27,6 +27,12 @@ public:
   {
   }
 
+  void operator () (Product & product){
+      float newPrice = (product.price()*0,90);
+
+      product.setPrice(newPrice);
+  }
+
   const std::string &name() const
   {
     return name_;
@@ -101,6 +107,7 @@ void printAll(const ProductList &pl)
   copy(pl.begin(), pl.end(), oStreamIter);
 
   std::cout << "##################################################" << std::endl;
+  
 }
 
 /**
@@ -145,7 +152,7 @@ void printPoorlySellingProducts(const ProductList &pl)
  */
 void addDiscountUsingForEach(ProductList &pl)
 {
-  
+  std::for_each(pl.begin(), pl.end(), Product());
 }
 
 /**
