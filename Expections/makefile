@@ -3,19 +3,34 @@
 ## 1.0.1 --> 1.0.3 Now builds if .hpp are modified
 ## 1.0.3 --> 1.1.0 Now takes DEBUG as param "make DEBUG=true or DEBUG=false + Build tasks added for release and debug
 
-SOURCES 	= main.cpp
-OBJECTS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.o))
-DEPS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.d))
-EXE 		= program
-HOST 		= windows
-DEBUG 		= false
-BOOST 		= C:\boost_1_71_0\bin.v2\libs
-BOOSTINC 	= C:\boost_1_71_0
+# Paths
+SRC_PATH		=.
+BUILD_PATH		=$(BUILD_DIR)
+BIN_PATH		=$(BIN_DIR)
 
+# Files
+SRC				=main.cpp
+DEPS			=$(addprefix ${BUILD_PATH}/, $(notdir ${SRC:%.cpp=%.d}))
+OBJS			=$(addprefix ${BUILD_PATH}/, $(notdir ${SRC:%.cpp=%.o}))
+
+#config
+EXE 			=program
+HOST 			=windows
+DEBUG 			=false
+
+CHOSENLIBS		= $(BOOSTLIB)\libboost_thread-vc141-mt-x64-1_72.lib $(BOOSTLIB)\libboost_chrono-vc141-mt-x64-1_72.lib $(BOOSTLIB)\libboost_system-vc141-mt-x64-1_72.lib
 
 #Compiler setUp
-CXX = g++ 
-CXXFLAGS = -I. -Wall -std=c++17 -I $(BOOSTINC)	# -I. = path to include files '. mean here # -Wall Show all Possible warnins
+BOOSTLIB		=C:/Cpp_Libs/boost/stage/lib
+BOOSTROOT 		=C:/Cpp_Libs/boost
+INCLUDEPATHS	= -I$(SRC_PATH) -I$(BOOSTROOT)
+CXX 			= g++ 
+CXXFLAGS 		=-Wall -std=c++17 $(INCLUDEPATHS)	 # -I. = path to include files '. mean here # -Wall Show all Possible warnins
+
+#linker
+LDFLAGS 		= -L$(BOOSTLIB) -lboost_thread-vc141-mt-x64-1_72 -lboost_chrono-vc141-mt-x64-1_72 -lboost_system-vc141-mt-x64-1_72
+
+
 
 ifeq ($(DEBUG), true)
 CXXFLAGS += -g
@@ -43,27 +58,53 @@ MAKE_FOLDER_BUILD 	= mkdir -p ${BUILD_DIR}
 MAKE_FOLDER_BIN   	= mkdir -p ${BIN_DIR}  
 endif
 
-# Build steps
-all: $(BIN_DIR)/$(EXE)
+# Prevents potential invalid targets
+.PHONY: all clean run help
 
-${BIN_DIR}/$(EXE): $(DEPS) $(OBJECTS)
-	@ echo "Creating folder for $(BUILD_DIR) if it does not exits"
+# Default target
+all: info ${BIN_PATH}/${EXE}
+
+# Display compilation info
+info:
+	@ echo "Compiling for '${host}'"
+
+# -------------------------------------- #
+# Folders
+# -------------------------------------- #
+${BIN_PATH}:
+	@ echo "Creating directory '${BIN_PATH}'"
 	$(MAKE_FOLDER_BIN)
-	$(CXX) $(CXXFLAGS)  -o $@ $(OBJECTS) -L $(BOOST) -lboost_thread -lboost_chrono
 
-# Rule that describes how a .d (dependency) file is created from a .cpp file
-# Similar to the assigment that you just completed %.cpp -> %.o
-${BUILD_DIR}/%.d: %.cpp
-	@ echo "Creating folder for $(BIN_DIR) if it does not exits"
+${BUILD_PATH}:
+	@ echo "Creating directory '${BUILD_PATH}'"
 	$(MAKE_FOLDER_BUILD)
-	$(CXX) -MT$(@:.d=.o) -MM $(CXXFLAGS) $^ > $@
 
-${BUILD_DIR}/%.o: %.cpp
-	@ echo "Creating folder for $(BUILD_DIR) if it does not exits"
-	$(MAKE_FOLDER_BUILD)
-	$(CXX) -c $< -o $@ $(CXXFLAGS)
+# -------------------------------------- #
+# Dependencies
+# -------------------------------------- #
+# Create dependencies with the proper prerequisites.
+${BUILD_PATH}/%.d: $(BUILD_PATH) %.cpp
+	@ echo "Compiling dependency file '$@' using '$^'"
+	@ $(CXX) -MT$(@:.d=.o) -MM $(CXXFLAGS) $(filter-out $<, $^) > $@
 
-ifneq ($(MAKECMDGOALS),clean)
+# -------------------------------------- #
+# Objects
+# -------------------------------------- #
+# Compile all object files from the included dependencies
+${BUILD_PATH}/%.o: %.cpp
+	@ echo "Compiling object file $@ using '$<'"
+	@ ${CXX} -c $< -o $@ ${CXXFLAGS}
+
+# -------------------------------------- #
+# Makefile runnables
+# -------------------------------------- #
+# Linking main executable
+${BIN_PATH}/${EXE}: $(BIN_PATH) $(DEPS) $(OBJS)
+	@ echo "Linking '${BIN_PATH}/${EXE}'"
+	@ ${CXX} -o $@ $(OBJS) $(LDFLAGS) 
+
+# Include all dependencies on default target
+ifeq (,$(filter $(MAKECMDGOALS),clean run help))
 -include $(DEPS)
 endif
 
