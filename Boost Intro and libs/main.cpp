@@ -1,9 +1,6 @@
 
 #include <iostream>
 
-
-
-
 int main (){
 
     int test = 2;
@@ -19,9 +16,4 @@ int main (){
     int number = 123;
 
     std::cout << "your number " << number<< std::endl;
-
-
-
-
-
 }
