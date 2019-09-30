@@ -9,10 +9,13 @@ DEPS		= $(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.d))
 EXE 		= program
 HOST 		= windows
 DEBUG 		= false
+BOOST 		= C:\boost_1_71_0\bin.v2\libs
+BOOSTINC 	= C:\boost_1_71_0
+
 
 #Compiler setUp
 CXX = g++ 
-CXXFLAGS = -I. -Wall -std=c++17 	# -I. = path to include files '. mean here # -Wall Show all Possible warnins
+CXXFLAGS = -I. -Wall -std=c++17 -I $(BOOSTINC)	# -I. = path to include files '. mean here # -Wall Show all Possible warnins
 
 ifeq ($(DEBUG), true)
 CXXFLAGS += -g
@@ -46,7 +49,7 @@ all: $(BIN_DIR)/$(EXE)
 ${BIN_DIR}/$(EXE): $(DEPS) $(OBJECTS)
 	@ echo "Creating folder for $(BUILD_DIR) if it does not exits"
 	$(MAKE_FOLDER_BIN)
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJECTS)
+	$(CXX) $(CXXFLAGS)  -o $@ $(OBJECTS) -L $(BOOST) -lboost_thread -lboost_chrono
 
 # Rule that describes how a .d (dependency) file is created from a .cpp file
 # Similar to the assigment that you just completed %.cpp -> %.o
