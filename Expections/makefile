@@ -21,14 +21,18 @@ DEBUG 			=false
 CHOSENLIBS		= $(BOOSTLIB)\libboost_thread-vc141-mt-x64-1_72.lib $(BOOSTLIB)\libboost_chrono-vc141-mt-x64-1_72.lib $(BOOSTLIB)\libboost_system-vc141-mt-x64-1_72.lib
 
 #Compiler setUp
-BOOSTLIB		=C:/Cpp_Libs/boost/stage/lib
-BOOSTROOT 		=C:/Cpp_Libs/boost
+# To build boost to windows run bootstrap.bat then ./b2 -a toolset=gcc
+# To build boost to linux run bootstrap.bat then ./b2
+
+#Edit boostLib paths to yours
+BOOSTLIB		=C:/Cpp_Libs/boost_1_71_0/stage/lib
+BOOSTROOT 		=C:/Cpp_Libs/boost_1_71_0
 INCLUDEPATHS	= -I$(SRC_PATH) -I$(BOOSTROOT)
 CXX 			= g++ 
 CXXFLAGS 		=-Wall -std=c++17 $(INCLUDEPATHS)	 # -I. = path to include files '. mean here # -Wall Show all Possible warnins
 
-#linker
-LDFLAGS 		= -L$(BOOSTLIB) -lboost_thread-vc141-mt-x64-1_72 -lboost_chrono-vc141-mt-x64-1_72 -lboost_system-vc141-mt-x64-1_72
+#linker flags -- please update the names for your lib
+LDFLAGS 		= -L$(BOOSTLIB)   -lboost_thread-gcc7-mt-x64-1_71 -lboost_chrono-gcc7-mt-d-x64-1_71 
 
 
 
@@ -101,7 +105,7 @@ ${BUILD_PATH}/%.o: %.cpp
 # Linking main executable
 ${BIN_PATH}/${EXE}: $(BIN_PATH) $(DEPS) $(OBJS)
 	@ echo "Linking '${BIN_PATH}/${EXE}'"
-	@ ${CXX} -o $@ $(OBJS) $(LDFLAGS) 
+	@ ${CXX} -o $@ $(LDFLAGS) $(OBJS) 
 
 # Include all dependencies on default target
 ifeq (,$(filter $(MAKECMDGOALS),clean run help))

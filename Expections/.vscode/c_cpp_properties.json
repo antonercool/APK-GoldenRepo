@@ -5,7 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "C:\\Cpp_Libs\\boost\\boost/**",
-                "C:/Cpp_Libs/boost"
+                "C:\\Cpp_Libs\\boost_1_71_0"
             ],
             "defines": [
                 "_DEBUG",
