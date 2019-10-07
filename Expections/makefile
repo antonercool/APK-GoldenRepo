@@ -32,7 +32,7 @@ CXX 			= g++
 CXXFLAGS 		=-Wall -std=c++17 $(INCLUDEPATHS)	 # -I. = path to include files '. mean here # -Wall Show all Possible warnins
 
 #linker flags -- please update the names for your lib
-LDFLAGS 		= -L$(BOOSTLIB) -lboost_chrono-mgw82-mt-s-x32-1_71 -lboost_thread-mgw82-mt-s-x32-1_71 -lboost_system-mgw82-mt-s-x32-1_71
+LDFLAGS 		=  #-L$(BOOSTLIB) -lboost_chrono-mgw82-mt-s-x32-1_71 -lboost_thread-mgw82-mt-s-x32-1_71 -lboost_system-mgw82-mt-s-x32-1_71
 
 ifeq ($(DEBUG), true)
 CXXFLAGS += -g
