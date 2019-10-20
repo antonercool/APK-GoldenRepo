@@ -17,9 +17,6 @@ OBJS			=$(addprefix ${BUILD_PATH}/, $(notdir ${SRC:%.cpp=%.o}))
 EXE 			=program
 HOST 			=windows
 DEBUG 			=false
-
-CHOSENLIBS		= $(BOOSTLIB)\libboost_thread-vc141-mt-x64-1_72.lib $(BOOSTLIB)\libboost_chrono-vc141-mt-x64-1_72.lib $(BOOSTLIB)\libboost_system-vc141-mt-x64-1_72.lib
-
 #Compiler setUp
 # To build boost to windows run bootstrap.bat then ./b2 -a toolset=gcc
 # To build boost to linux run bootstrap.bat then ./b2
@@ -32,7 +29,7 @@ CXX 			= g++
 CXXFLAGS 		=-Wall -std=c++17 $(INCLUDEPATHS)	 # -I. = path to include files '. mean here # -Wall Show all Possible warnins
 
 #linker flags -- please update the names for your lib
-LDFLAGS 		= -L$(BOOSTLIB) -lboost_chrono-mgw82-mt-s-x32-1_71 -lboost_thread-mgw82-mt-s-x32-1_71 -lboost_system-mgw82-mt-s-x32-1_71
+LDFLAGS 		= #-L$(BOOSTLIB) -lboost_chrono-mgw82-mt-s-x32-1_71 -lboost_thread-mgw82-mt-s-x32-1_71 -lboost_system-mgw82-mt-s-x32-1_71
 
 ifeq ($(DEBUG), true)
 CXXFLAGS += -g
