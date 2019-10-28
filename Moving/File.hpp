@@ -60,6 +60,7 @@ public:
         _filePath = otherToCopy._filePath;
     }
 
+    // DeepAssignment
     File &operator=(const File &otherToCopyAssign)
     {
 
@@ -86,30 +87,38 @@ public:
     {
         std::cout << "MoveConstrutor" << std::endl;
         //Steal resource from fileToShallowClone
-        if (_file != nullptr)
-        {
-            fclose(_file);
-            _file = nullptr;
-        }
-
         _file = fileToShallowClone._file;
+        _filePath = fileToShallowClone._filePath;
+
         // When tempObject calls destructor if does not delete beacuse it is nullptr
         fileToShallowClone._file = nullptr;
         // std::swap(fileToShallowClone._file, this->_file)
     }
 
-    File &operator=(const File &&fileToShallowAssign) noexcept
+    //shallow Assignment
+    File &operator=(File &&fileToShallowAssign) noexcept
     {
         std::cout << "MoveAssigment" << std::endl;
-        //close own // and other to steal from
+        // Self check
+        if (&fileToShallowAssign == this)
+        {
+            return *this;
+        }
+
+        //close own
         if (_file != nullptr)
         {
             fclose(_file);
-            fclose(fileToShallowAssign._file);
         }
 
-        _file = fopen(fileToShallowAssign._filePath.c_str(), "a+");
+        // steal other
+        _file = fileToShallowAssign._file;
         _filePath = fileToShallowAssign._filePath;
+
+        // clear other 
+        fileToShallowAssign._file = nullptr;
+
+        return *this;
     }
 
     // Important information about delete operation

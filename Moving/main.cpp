@@ -36,7 +36,7 @@ int main()
     std::cout << "Testing copy Move Semantics" << std::endl;
     {
         // File("test2.txt") is a rvalue
-        File myFile1(std::move(File("test2.txt")));
+        File myFile1(File("test2.txt"));
         //File myFile1(File{"test2.txt"});
         ///File myFile1(File("test2.txt"));
 
@@ -51,7 +51,8 @@ int main()
         std::cout << myFile1.readLine() << std::endl;
 
         //myFile1 = std::move(File("test2.txt"));
-        myFile1 = File("Test.txt");
+        File f = File("Test2.txt");
+        myFile1 = File("Test2.txt");
         //myFile1 = File{"test2.txt"};
 
         std::cout << myFile1.readLine() << std::endl;
