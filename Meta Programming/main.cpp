@@ -4,6 +4,7 @@
 #include "IsSame.hpp"
 #include "Contains.hpp"
 #include "AtIndex.hpp"
+#include "PrintIT.hpp"
 
 int main()
 {
@@ -40,9 +41,7 @@ int main()
     std::cout << "IsSame <typename AtIndex <TL , 60>::type , NullType >:: value = " << 
          IsSame<typename AtIndex<MyTypeList, 60>::Type, NullType>::value << std::endl;  
     
-
-
-
+    std::cout << "PrintIt<TL>::value should(int, char, bool, double) -> " << PrintIT<MyTypeList>::value << std::endl;
 
 
 
